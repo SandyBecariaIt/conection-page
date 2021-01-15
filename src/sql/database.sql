@@ -55,7 +55,6 @@ CREATE TABLE operatorLoan (
     CONSTRAINT chkMovement CHECK (movemenType='loan' OR movemenType='return')
 );
 
-
 CREATE TABLE Books (
 	idBook INT PRIMARY KEY AUTO_INCREMENT,
     nameBook VARCHAR(100),
@@ -70,6 +69,19 @@ CREATE TABLE loanDescription (
     idLoan INT REFERENCES bookLoan (idLoan),
     idBook INT REFERENCES Books (idBook)
 );
+SELECT * FROM userReader;
+
+CREATE VIEW BooksInfo
+AS
+SELECT B.idBook, B.nameBook, B.quantity, B.bookDescription, L.description, E.nameEditorial FROM Books AS B JOIN literaryGenre AS L
+ON L.idGene= B.idGene
+INNER JOIN editorial AS E
+ON E.idEditorial = B.idEditorial;
+
+CREATE VIEW UserInfo
+AS
+SELECT U.enrollment, U.nameUser, U.birthdate, U.phone, U.email, T.descriptionType FROM User AS U INNER JOIN userType AS T
+ON U.idType = T.idType;
 
 -- INSERTS
 
